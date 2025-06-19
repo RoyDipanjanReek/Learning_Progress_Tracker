@@ -8,8 +8,11 @@ import hpp from "hpp";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRoute from "./routes/user.route.js";
+import courseRoute from "./routes/course.route.js"
 import connectDB from "./database/db.js";
-
+import healthCheck from "./routes/healthCheck.route.js";
+import CourseProgress  from "./routes/courseProgress.route.js";
+import coursePurchase from "./routes/coursePurches.route.js"
 //Config Dotenv Here
 dotenv.config();
 
@@ -29,7 +32,6 @@ const limiter = rateLimit({
 //All security middleware are here
 app.use(helmet());
 app.use(hpp()); //Express middleware to protect against HTTP Parameter Pollution attacks
-// app.use(mongooseSanitizer())
 app.use("/api", limiter);
 app.use(cookieParser());
 
@@ -71,7 +73,11 @@ app.use(
 );
 
 // All Api Routes are here--
-app.use("/api/v1/user", userRoute);  //<----User Route 
+app.use("/api/v1/user", userRoute);  //<----User Route is here
+app.use("/api/v1/course", courseRoute) //<---- Course Route is here
+app.use("/healthCheck", healthCheck) //<---- Health Check Route is here
+app.use("/api/v1/courseProgress",CourseProgress) //<---- Course Progress Route is here
+app.use("/api/v1/coursePurchase",coursePurchase) //<---- Course Purchase Route is here
 
 //404 handler are here--
 app.use((req, res) => {

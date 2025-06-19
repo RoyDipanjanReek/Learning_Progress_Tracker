@@ -1,16 +1,17 @@
 import { User } from "../models/user.model.js";
 import { Course } from "../models/course.model.js";
 import { ApiError, catchAsync } from "../middleware/error.middleware.js";
-import { Promise } from "mongoose";
 import { Lecture } from "../models/lecture.model.js";
-import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary";
+import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
 
 // CREATE COURSE Controller Start Here--
 export const createNewCourse = catchAsync(async (req, res) => {
+  // TO create a course we need all these input from instructor
   const { title, subTitle, description, catagory, price } = req.body;
 
   let thumbnail;
 
+  //Thumbnail uplode via cloudinary
   if (req.file) {
     const result = await uploadMedia.apply(req.file.path);
     thumbnail = result?.secure_url || req.file.path;
@@ -18,6 +19,7 @@ export const createNewCourse = catchAsync(async (req, res) => {
     throw new ApiError("Course thumbnail is required", 400);
   }
 
+  //If everything is ok then comes to create course
   const course = await Course.create({
     title,
     subTitle,
@@ -28,10 +30,13 @@ export const createNewCourse = catchAsync(async (req, res) => {
     instructor: req.id,
   });
 
+  // To check if the instructor exist or not
   await User.findByIdAndUpdate(req.id, {
     $push: { createdCourses: course.id },
   });
-  res.staus(201).json({
+
+  //if exists then return responce thet "Course created successfully"
+  res.status(201).json({
     success: true,
     message: "Course created successfully",
     data: course,
@@ -41,8 +46,9 @@ export const createNewCourse = catchAsync(async (req, res) => {
 // UPDATE COURSE DETAILS Controller Start Here--
 export const updateCourse = catchAsync(async (req, res) => {
   const { courseId } = req.params;
-  const { title, subtitle, description, category, level, price } = req.body;
+  const { title, subtitle, description, catagory, level, price } = req.body;
 
+  //Find the user using this courseId
   const course = await Course.findById(courseId);
   if (!course) {
     throw new ApiError("Course not found", 404);
@@ -68,7 +74,7 @@ export const updateCourse = catchAsync(async (req, res) => {
       title,
       subtitle,
       description,
-      category,
+      catagory,
       level,
       price,
       ...(thumbnail && { thumbnail }),
@@ -76,7 +82,7 @@ export const updateCourse = catchAsync(async (req, res) => {
     { new: true, runValidators: true }
   );
 
-  res.staus(200).json({
+  res.status(200).json({
     success: true,
     message: "Course Update successfully",
     data: updatedCourse,

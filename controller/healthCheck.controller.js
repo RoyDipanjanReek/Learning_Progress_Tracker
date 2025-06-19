@@ -1,21 +1,22 @@
-import { getDbStatus } from "../database/db";
+import {getDBStatus}  from "../database/db.js";
 
+//To check the database status from here
 export const checkHealth = async (req, res) => {
   try {
-    const dbStatus = getDbStatus();
+    const dbStatus = getDBStatus();
 
     const healthStataus = {
       status: "OK",
       timeStamp: new Date().toISOString(),
       services: {
-        database: {
+        database: { //Check the database status from here
           status: dbStatus.isConnected ? "healthy" : "unhealthy",
           details: {
             ...dbStatus,
             readyState: getReadyStateText(dbStatus.readyState),
           },
         },
-        server: {
+        server: { // Check the server status from here
           status: "healthy",
           uptime: process.uptime(),
           memoryUsege: process.memoryUsage(),
@@ -37,7 +38,7 @@ export const checkHealth = async (req, res) => {
   }
 };
 
-//utility method
+//utility method to check the condition
 function getReadyStateText(state) {
   switch (state) {
     case 0:

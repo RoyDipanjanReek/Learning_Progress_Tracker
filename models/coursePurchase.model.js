@@ -18,7 +18,7 @@ const coursePurchaseSchema = new mongoose.Schema(
       min: [0, "amount must be non - negative"],
     },
     currency: {
-      Types: String,
+      type: String,
       required: [true, "Currency is required"],
       upperCase: true,
       default: "INR",

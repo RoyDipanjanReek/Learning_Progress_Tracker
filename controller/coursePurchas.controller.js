@@ -3,6 +3,7 @@ import { ApiError, catchAsync } from "../middleware/error.middleware.js";
 import { User } from "../models/user.model.js";
 import { Lecture } from "../models/lecture.model.js";
 import Stripe from "stripe";
+import {CoursePurchase} from "../models/coursePurchase.model.js"
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
