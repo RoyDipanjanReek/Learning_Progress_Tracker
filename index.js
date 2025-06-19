@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
-// import mongooseSanitizer from "mongoose-sanitizer";
 import hpp from "hpp";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -13,6 +12,12 @@ import connectDB from "./database/db.js";
 import healthCheck from "./routes/healthCheck.route.js";
 import CourseProgress  from "./routes/courseProgress.route.js";
 import coursePurchase from "./routes/coursePurches.route.js"
+import swaggerUi from "swagger-ui-express"
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const swaggerDocument = require('./swagger-output.json');
+
+
 //Config Dotenv Here
 dotenv.config();
 
@@ -21,6 +26,10 @@ await connectDB();
 
 const app = express();
 const PORT = process.env.PORT;
+
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 //Global rate limiting
 const limiter = rateLimit({
