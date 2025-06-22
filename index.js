@@ -14,6 +14,8 @@ import CourseProgress  from "./routes/courseProgress.route.js";
 import coursePurchase from "./routes/coursePurches.route.js"
 import swaggerUi from "swagger-ui-express"
 import { createRequire } from 'module';
+import notificationRoute from "./routes/notifications.route.js"
+
 const require = createRequire(import.meta.url);
 const swaggerDocument = require('./swagger-output.json');
 
@@ -87,6 +89,7 @@ app.use("/api/v1/course", courseRoute) //<---- Course Route is here
 app.use("/healthCheck", healthCheck) //<---- Health Check Route is here
 app.use("/api/v1/courseProgress",CourseProgress) //<---- Course Progress Route is here
 app.use("/api/v1/coursePurchase",coursePurchase) //<---- Course Purchase Route is here
+app.use("/api/v1/notificationRoute", notificationRoute)//<---- Course Notification Route is here
 
 //404 handler are here--
 app.use((req, res) => {
