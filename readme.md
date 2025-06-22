@@ -50,7 +50,7 @@ This project provides secure authentication, course management, progress analyti
 
 Make sure to configure these in your `.env` file (and Render dashboard):
 
-```env
+``` env
 PORT=8080
 NODE_ENV= production or development
 CLIENT_URL=https://your-frontend-url
@@ -74,20 +74,20 @@ STRIPE_WEBHOOK_SECRET=whsec_...
 
 ## 🚀 Getting Started (Local Setup)
 ### 1. Clone the repo
-```
+``` bash
 git clone https://github.com/yourusername/learning-progress-tracker-backend.git
 cd learning-progress-tracker-backend
 ```
 
 ### 2. Install dependencies
-```
+``` bash
 npm install
 ```
 ### 3. Configure .env file
 **(see above)**
 
 ### 4. Run the server
-```
+``` bash
 npm run dev  # for development
 
 ```
