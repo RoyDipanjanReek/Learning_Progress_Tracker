@@ -90,6 +90,8 @@ app.use("/healthCheck", healthCheck) //<---- Health Check Route is here
 app.use("/api/v1/courseProgress",CourseProgress) //<---- Course Progress Route is here
 app.use("/api/v1/coursePurchase",coursePurchase) //<---- Course Purchase Route is here
 app.use("/api/v1/notificationRoute", notificationRoute)//<---- Course Notification Route is here
+// All Api Routes are here--
+
 
 //404 handler are here--
 app.use((req, res) => {

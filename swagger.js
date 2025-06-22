@@ -5,8 +5,8 @@ const doc = {
     title: 'Learning Progress Tracker API',
     description: 'Auto-generated Swagger docs for My backend (Learning_Progress_Tracker)',
     contact: {
-      name: 'Dipanjan Roy', // ✅ your name
-      email: 'dipanjan@example.com', // optional
+      name: 'Dipanjan Roy', 
+      email: 'dipanjan@example.com', 
     }
   },
   host: 'localhost:8080',
